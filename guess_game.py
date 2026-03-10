@@ -14,16 +14,35 @@ import random
 # The following function receives two words as parameters should return the number of matching letters between them.
 # See the assignment brief for details of this function's requirements.
 def compareWords(word1, word2):
-    pass # The "pass" command tells Python to do nothing.  It is simply a placeholder for your code.
+    # pass The "pass" command tells Python to do nothing.  It is simply a placeholder for your code.
+    count = 0
+    for i in range(min(len(word1), len(word2))):
+        if word1[i] == word2[i]:
+            count += 1
+    return count
+        
+# Function to select 8 unique random words from the candidate list       
+def selectRandomWords(candidateWords):
+    game_words = []  # Initialize empty list for game words
+    while len(game_words) < 8:  # Keep adding until we have 8 words
+        word = random.choice(candidateWords)  # Pick a random word
+        if word not in game_words:  # Ensure no duplicates
+            game_words.append(word)
+    return game_words
 
+# Function to select one word as the password
+def selectPassword(game_words):
+    return random.choice(game_words)  # Pick and return a random word
 
+# Function to get user input
+def getUserInput(prompt):
+    user_input = input(prompt).upper()  # Convert to uppercase to match word list
+    return user_input
 
 # Add your user-defined functions here
 
 
-
-
-
+# Main program
 def main():
 # IMPLEMENT YOUR PROGRAM HERE AND CALL OTHERS FUNCTIONS AND PASS PARAMETERS TO FUNCTIONS, WHEN NEEDED.   
 
@@ -35,6 +54,7 @@ def main():
     # The rest is up to you...
     # See the assignment brief for details of the program requirements.
     # All code inside a Python function must be indented.  
+
 
     words =random.sample(candidateWords,8) #Select 8 ramdom words from candidate words
     password =random.choice(words) #Select one of the 8 words as Password
@@ -53,11 +73,10 @@ def main():
         if guess == password:
           print("Correct! You guessed the password.")
           break  # Stop the game
-
-    else:
+        else:
         # Count how many letters match in the same position
-        correct_letters = 0
-        for i in range(len(password)):
+         correct_letters = 0
+         for i in range(len(password)):
             if i < len(guess) and guess[i] == password[i]:
                 correct_letters += 1
 
