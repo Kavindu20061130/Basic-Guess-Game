@@ -67,7 +67,7 @@ def main():
             print(word)
 
          #Ask user to guess
-        guess =input("\n Enter your guess:")
+        guess = getUserInput("\nEnter your guess:")
 
          # Check if the guess is correct
         if guess == password:
@@ -94,8 +94,3 @@ def main():
 
 #Call to main function above. Do not modify or remove this.
 main()
-
-
-
-
-  
