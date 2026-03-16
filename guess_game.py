@@ -56,51 +56,59 @@ def main():
     # All code inside a Python function must be indented.  
 
 
-    words =random.sample(candidateWords,8) #Select 8 ramdom words from candidate words
-    password =random.choice(words) #Select one of the 8 words as Password
+    wordList = random.sample(candidateWords, 8) # Select 8 random words from candidate words
+    password = random.choice(wordList)          # Select one of the 8 words as Password
+    won = False                                 # Boolean to track if the game has been won
+    guessesRemaining = 4                        # Maximum guesses allowed is 4
 
-    attempts =4 #maximum attempts allowed is 4
+    while guessesRemaining > 0 and not won:
 
-    while attempts > 0:
+        print("\nPassword is one of these words:")
 
-     print("\nPassword is one of these words:")
+        # Print the words with numbers (0-7)
+        for i, word in enumerate(wordList):
+            print(str(i) + ")", word)
 
-     # Print the words with numbers (0-7)
-     for i, word in enumerate(words):
-         print(str(i) + ")", word)
+        # Show remaining guesses
+        print("\nGuesses remaining:", guessesRemaining)
 
-     # Show remaining guesses
-     print("\nGuesses remaining:", attempts)
+        # Ask user to enter a number
+        try:
+         guess_index = int(input("Guess (enter 0-7): "))
+        except ValueError:                                        # Extra: Validate input to ensure user enters a valid index (0-7) this prevents the program crashing.
+         print("Invalid input! Please enter a number between 0 and 7.")
+         continue  # skip this iteration and ask again
 
-     # Ask user to enter a number
-     guess_index = int(input("Guess (enter 0-7): "))
+        # Reduce attempts immediately after the guess
+        guessesRemaining -= 1
 
-     # Get the guessed word using the number
-     guess_word = words[guess_index]
+        # Get the guessed word using the number
+        guess_word = wordList[guess_index]
 
-     # Print the chosen word
-     print("\n" + guess_word)
+        # Print the chosen word
+        print("\n" + guess_word)
 
-     # Check if correct
-     if guess_word == password:
-         print("Congratulations. You win!")
-         break
+        # Check if correct
+        if guess_word == password:
+            print("Password correct.")
+            won = True
+            break
 
-     else:
-        # Compare letters using the function
-        correct_letters = compareWords(password, guess_word)
+        else:
+            # Compare letters using the function
+            correct_letters = compareWords(password, guess_word)
 
-        print("Password incorrect.")
-        print(str(correct_letters) + "/6 correct.")
+            print("Password incorrect.")
+            print(str(correct_letters) + "/6 correct.")
 
-        # Reduce attempts
-        attempts -= 1
-        print("Attempts left:", attempts)
+            # Display Reduce attempts
+            print("Attempts left:", guessesRemaining)
 
-# If attempts finished and password not guessed
-    if attempts == 0:
-     print("\nGame Over. The password was:", password)
-
+    # If attempts finished or password guessed, show final message
+    if won:
+      print("\nCongratulations. You win!")
+    else:
+      print("\nYou lose! The password was:", password)
 
 #Call to main function above. Do not modify or remove this.
 main()
