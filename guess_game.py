@@ -46,7 +46,7 @@ def getUserInput(prompt):
 def main():
 # IMPLEMENT YOUR PROGRAM HERE AND CALL OTHERS FUNCTIONS AND PASS PARAMETERS TO FUNCTIONS, WHEN NEEDED.   
 
-    print("Welcome to the Gues The Word Game")# This code line display the welcome of the program. 
+    print("Welcome to the Guess-The-Word Game.")# This code line display the welcome of the program. 
 
     # Create a list of 100 words that are similar enough to work well for this game.
     candidateWords = ['AETHER', 'BADGED', 'BALDER', 'BANDED', 'BANTER', 'BARBER', 'BASHER', 'BATHED', 'BATHER', 'BEAMED', 'BEANED', 'BEAVER', 'BECKET', 'BEDDER', 'BEDELL', 'BEDRID', 'BEEPER', 'BEGGAR', 'BEGGED', 'BELIES', 'BELLES', 'BENDED', 'BENDEE', 'BETTER', 'BLAMER', 'BLOWER', 'BOBBER', 'BOLDER', 'BOLTER', 'BOMBER', 'BOOKER', 'BOPPER', 'BORDER', 'BOSKER', 'BOTHER', 'BOWYER', 'BRACER', 'BUDGER', 'BUMPER', 'BUSHER', 'BUSIER', 'CEILER', 'DEADEN', 'DEAFER', 'DEARER', 'DELVER', 'DENSER', 'DEXTER', 'EVADER', 'GELDED', 'GELDER', 'HEARER', 'HEIFER', 'HERDER', 'HIDDEN', 'JESTER', 'JUDDER', 'KIDDED', 'KIDDER', 'LEANER', 'LEAPER', 'LEASER', 'LEVIED', 'LEVIER', 'LEVIES', 'LIDDED', 'MADDER', 'MEANER', 'MENDER', 'MINDER', 'NEATER', 'NEEDED', 'NESTER', 'PENNER', 'PERTER', 'PEWTER', 'PODDED', 'PONDER', 'RADDED', 'REALER', 'REAVER', 'REEDED', 'REIVER', 'RELIER', 'RENDER', 'SEARER', 'SEDGES', 'SEEDED', 'SEISER', 'SETTER', 'SIDDUR', 'TEENER', 'TEMPER', 'TENDER', 'TERMER', 'VENDER', 'WEDDED', 'WEEDED', 'WELDED', 'YONDER']
@@ -61,27 +61,37 @@ def main():
 
     attempts =4 #maximum attempts allowed is 4
 
-    while attempts >0:
-        print("\nAvailable Words")
-        for word in words:
-            print(word)
+    while attempts > 0:
 
-         #Ask user to guess
-        guess = getUserInput("\nEnter your guess:")
+     print("\nPassword is one of these words:")
 
-         # Check if the guess is correct
-        if guess == password:
-          print("Correct! You guessed the password.")
-          break  # Stop the game
-        else:
-        # Count how many letters match in the same position
-         correct_letters = 0
-         for i in range(len(password)):
-            if i < len(guess) and guess[i] == password[i]:
-                correct_letters += 1
+     # Print the words with numbers (0-7)
+     for i, word in enumerate(words):
+         print(str(i) + ")", word)
 
-        # Show number of correct letters
-        print("Correct letters in the correct position:", correct_letters)
+     # Show remaining guesses
+     print("\nGuesses remaining:", attempts)
+
+     # Ask user to enter a number
+     guess_index = int(input("Guess (enter 0-7): "))
+
+     # Get the guessed word using the number
+     guess_word = words[guess_index]
+
+     # Print the chosen word
+     print("\n" + guess_word)
+
+     # Check if correct
+     if guess_word == password:
+         print("Congratulations. You win!")
+         break
+
+     else:
+        # Compare letters using the function
+        correct_letters = compareWords(password, guess_word)
+
+        print("Password incorrect.")
+        print(str(correct_letters) + "/6 correct.")
 
         # Reduce attempts
         attempts -= 1
