@@ -36,7 +36,7 @@ def selectPassword(game_words):
 
 # Function to get user input
 def getUserInput(prompt):
-    user_input = input(prompt).upper()  # Convert to uppercase to match word list
+    user_input = input(prompt)  # Get input from user
     return user_input
 
 # Add your user-defined functions here
@@ -44,8 +44,8 @@ def getUserInput(prompt):
 
 # Main program
 def main():
-# IMPLEMENT YOUR PROGRAM HERE AND CALL OTHERS FUNCTIONS AND PASS PARAMETERS TO FUNCTIONS, WHEN NEEDED.   
-
+ # IMPLEMENT YOUR PROGRAM HERE AND CALL OTHERS FUNCTIONS AND PASS PARAMETERS TO FUNCTIONS, WHEN NEEDED.   
+    
     print("Welcome to the Guess-The-Word Game.")# This code line display the welcome of the program. 
 
     # Create a list of 100 words that are similar enough to work well for this game.
@@ -56,8 +56,8 @@ def main():
     # All code inside a Python function must be indented.  
 
 
-    wordList = random.sample(candidateWords, 8) # Select 8 random words from candidate words
-    password = random.choice(wordList)          # Select one of the 8 words as Password
+    wordList = selectRandomWords(candidateWords) # Select 8 random words from candidate words
+    password = selectPassword(wordList)          # Select one of the 8 words as Password
     won = False                                 # Boolean to track if the game has been won
     guessesRemaining = 4                        # Maximum guesses allowed is 4
 
@@ -67,17 +67,15 @@ def main():
 
         # Print the words with numbers (0-7)
         for i, word in enumerate(wordList):
-            print(str(i) + ")", word)
+         print(f"{i}) {word}")
 
         # Show remaining guesses
         print("\nGuesses remaining:", guessesRemaining)
 
         # Ask user to enter a number
-        try:
-         guess_index = int(input("Guess (enter 0-7): "))
-        except ValueError:                                        # Extra: Validate input to ensure user enters a valid index (0-7) this prevents the program crashing.
-         print("Invalid input! Please enter a number between 0 and 7.")
-         continue  # skip this iteration and ask again
+        user_input = getUserInput("Guess (enter 0-7): ")
+        guess_index = int(user_input) 
+
 
         # Reduce attempts immediately after the guess
         guessesRemaining -= 1
