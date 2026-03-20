@@ -90,7 +90,7 @@ def main():
             # Input validation to prevent crashing
             try:
                 user_input = getUserInput("Guess (enter 1-8): ")
-                guess_index = int(user_input) - 1   # Convert to list index
+                guess_index = int(user_input) - 1   # Convert it to list index
 
                 if guess_index < 0 or guess_index > 7:
                     print("Invalid input. Enter number between 1 and 8.")
@@ -100,7 +100,7 @@ def main():
                 print("Invalid input. Please enter a number.")
                 continue
 
-            # Check if already guessed
+            # Check if already the password is guessed
             if guess_index in guessedWords:
                 print("You already guessed that word.")
                 continue
@@ -119,7 +119,7 @@ def main():
             else:
                 correct_letters = compareWords(password, guess_word)
 
-                guessedWords[guess_index] = correct_letters  # Store result
+                guessedWords[guess_index] = correct_letters  # Store the result
 
                 print("Password incorrect.")
                 print(str(correct_letters) + "/6 correct.")
